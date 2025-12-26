@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mousam E-mitra & CSC Center - धौलत, पहाड़ी, डीग</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .logo p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        nav a:hover {
+            opacity: 0.8;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 20px;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 0.8s;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: fadeInUp 1.2s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        /* Services Section */
+        .services {
+            padding: 4rem 20px;
+            background: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            color: #667eea;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-card h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        /* Service Tabs */
+        .service-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 12px 30px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .tab-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .services-content {
+            display: none;
+        }
+
+        .services-content.active {
+            display: block;
+            animation: fadeInUp 0.6s;
+        }
+
+        .service-category-title {
+            text-align: center;
+            font-size: 1.5rem;
+            color: #667eea;
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+
+        /* Home Delivery Styles */
+        .home-delivery-banner {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            box-shadow: 0 3px 15px rgba(240, 147, 251, 0.3);
+        }
+
+        .service-card.home-delivery {
+            border: 2px solid #f093fb;
+            position: relative;
+        }
+
+        .delivery-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        .home-delivery-info {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+        }
+
+        .home-delivery-info h4 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .home-delivery-info ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .home-delivery-info li {
+            padding: 0.5rem 0;
+            font-size: 1.05rem;
+        }
+
+        .cta-container {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 4rem 20px;
+            background: white;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-info {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+        }
+
+        .contact-info h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-item-icon {
+            font-size: 1.5rem;
+        }
+
+        .contact-form {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Location Section */
+        .location {
+            padding: 4rem 20px;
+            background: #f8f9fa;
+        }
+
+        .map-container {
+            margin-top: 2rem;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        /* Footer */
+        footer {
+            background: #2d3748;
+            color: white;
+            padding: 2rem 20px;
+            text-align: center;
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #25D366;
+            color: white;
+            padding: 15px;
+            border-radius: 50%;
+            font-size: 2rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+            cursor: pointer;
+            transition: transform 0.3s;
+            z-index: 1000;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+                justify-content: center;
+            }
+
+            .header-content {
+                justify-content: center;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <h1>🏢 Mousam E-mitra & CSC Center</h1>
+                <p>सभी सरकारी सेवाएं एक छत के नीचे</p>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">होम</a></li>
+                    <li><a href="#services">सेवाएं</a></li>
+                    <li><a href="#contact">संपर्क</a></li>
+                    <li><a href="#location">स्थान</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h2>आपकी सेवा में हमेशा तत्पर</h2>
+            <p>सभी E-mitra और CSC सेवाएं | आधार, पैन कार्ड, बिल भुगतान, प्रमाण पत्र और बहुत कुछ</p>
+            <a href="#contact" class="cta-button">अभी संपर्क करें</a>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <h2 class="section-title">हमारी सेवाएं</h2>
+            
+            <!-- Service Category Tabs -->
+            <div class="service-tabs">
+                <button class="tab-btn active" onclick="showServices('csc')">🖥️ CSC सेवाएं</button>
+                <button class="tab-btn" onclick="showServices('emitra')">🏛️ E-mitra सेवाएं</button>
+                <button class="tab-btn" onclick="showServices('home')">🏡 होम डिलीवरी सेवाएं</button>
+            </div>
+
+            <!-- CSC Services -->
+            <div id="csc-services" class="services-content active">
+                <h3 class="service-category-title">Common Service Centre (CSC) सेवाएं</h3>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">🆔</div>
+                        <h3>आधार सेवाएं</h3>
+                        <p>आधार नामांकन, ई-केवाईसी, प्रमाणीकरण, आधार प्रिंटिंग और अपडेट (UCL)</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">🏛️</div>
+                        <h3>पीएम कल्याण योजनाएं</h3>
+                        <p>आयुष्मान भारत, फसल बीमा, उज्ज्वला, किसान सम्मान निधि, ई-श्रम पंजीकरण</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">📄</div>
+                        <h3>सरकारी दस्तावेज</h3>
+                        <p>पासपोर्ट आवेदन, पैन कार्ड, चुनाव आयोग सेवाएं, जीवन प्रमाण, भर्ती आवेदन</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">🏦</div>
+                        <h3>वित्तीय समावेशन</h3>
+                        <p>बैंकिंग, डिजीपे (AEPS), बीमा, NPS, APY, फास्टैग सेवाएं</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">💡</div>
+                        <h3>बिल भुगतान (BBPS)</h3>
+                        <p>बिजली, पानी, गैस, LPG बुकिंग और सभी उपयोगिता बिल</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">🎓</div>
+                        <h3>शैक्षणिक सेवाएं</h3>
+                        <p>डिजिटल साक्षरता, NIELIT, NIOS, IGNOU, CSC अकादमी कोर्स</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">🏥</div>
+                        <h3>स्वास्थ्य सेवाएं</h3>
+                        <p>टेली-मेडिसिन, दवा बिक्री, स्त्री स्वाभिमान (StreeSwabhiman)</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">🚆</div>
+                        <h3>यात्रा और कानूनी</h3>
+                        <p>IRCTC रेल टिकट, यात्रा बुकिंग, टेली-लीगल परामर्श, ई-कोर्ट सेवाएं</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- E-mitra Services -->
+            <div id="emitra-services" class="services-content">
+                <h3 class="service-category-title">राजस्थान E-mitra सेवाएं</h3>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">📜</div>
+                        <h3>प्रमाण पत्र सेवाएं</h3>
+                        <p>मूल निवास, जाति (OBC/SC/ST/EWS), आय, जन्म/मृत्यु/विवाह, पुलिस सत्यापन प्रमाण पत्र</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">💳</div>
+                        <h3>जन-आधार/भामाशाह</h3>
+                        <p>जन-आधार पंजीकरण, नामांकन, अपडेट और बैंकिंग सेवाएं (राशि निकासी)</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">👴</div>
+                        <h3>पेंशन एवं सामाजिक न्याय</h3>
+                        <p>वृद्धावस्था पेंशन, विशेष योग्यजन पेंशन, पालनहार योजना, छात्रवृत्ति आवेदन</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">🏞️</div>
+                        <h3>राजस्व विभाग</h3>
+                        <p>भूमि रिकॉर्ड (Land Records) की प्रतिलिपि और अन्य राजस्व संबंधित सेवाएं</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">💼</div>
+                        <h3>रोजगार सेवाएं</h3>
+                        <p>बेरोजगारी भत्ता (मुख्यमंत्री युवा संबल योजना), रोजगार पंजीकरण</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">🌾</div>
+                        <h3>कृषि विभाग</h3>
+                        <p>कृषि अनुदान (डिग्गी, तारबंदी, फार्म पॉन्ड), बीज/खाद/कीटनाशक लाइसेंस</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">💰</div>
+                        <h3>वित्तीय सेवाएं</h3>
+                        <p>AEPS/डिजीपे, बीमा प्रीमियम, होम लोन लीड जेनरेशन</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">⚡</div>
+                        <h3>बिल भुगतान</h3>
+                        <p>बिजली (DISCOM), पानी, मोबाइल/DTH, ब्रॉडबैंड बिल भुगतान</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">🍚</div>
+                        <h3>राशन कार्ड</h3>
+                        <p>नया राशन कार्ड, संशोधन, सदस्य जोड़ना/हटाना</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">📝</div>
+                        <h3>परीक्षा शुल्क</h3>
+                        <p>सरकारी भर्ती और कॉलेज/विश्वविद्यालय परीक्षा शुल्क जमा</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">🚗</div>
+                        <h3>परिवहन सेवाएं</h3>
+                        <p>ड्राइविंग लाइसेंस, वाहन पंजीकरण संबंधित सेवाएं</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">💉</div>
+                        <h3>स्वास्थ्य सेवाएं</h3>
+                        <p>टीकाकरण पंजीकरण और अन्य स्वास्थ्य संबंधित सेवाएं</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Home Delivery Services -->
+            <div id="home-services" class="services-content">
+                <h3 class="service-category-title">🏡 होम डिलीवरी सेवाएं (घर बैठे सेवाएं)</h3>
+                <div class="home-delivery-banner">
+                    <p>✨ अब आपके घर पर उपलब्ध! बिना कियोस्क आए, घर बैठे सभी सेवाएं पाएं</p>
+                </div>
+                <div class="services-grid">
+                    <div class="service-card home-delivery">
+                        <div class="service-icon">💡</div>
+                        <div class="delivery-badge">होम डिलीवरी</div>
+                        <h3>बिजली बिल भुगतान</h3>
+                        <p>सभी डिस्कॉम (DISCOM) के बिल जमा। अकाउंट नंबर दें, हम ऑनलाइन भुगतान करेंगे। रसीद WhatsApp/ईमेल पर मिलेगी।</p>
+                    </div>
+                    <div class="service-card home-delivery">
+                        <div class="service-icon">💧</div>
+                        <div class="delivery-badge">होम डिलीवरी</div>
+                        <h3>पानी और गैस बिल</h3>
+                        <p>PHED पानी बिल और LPG बुकिंग। आवश्यक विवरण दें, हम ऑनलाइन भुगतान करेंगे।</p>
+                    </div>
+                    <div class="service-card home-delivery">
+                        <div class="service-icon">📱</div>
+                        <div class="delivery-badge">होम डिलीवरी</div>
+                        <h3>मोबाइल/DTH रिचार्ज</h3>
+                        <p>प्रीपेड, पोस्टपेड और DTH रिचार्ज। नंबर दें, तुरंत रिचार्ज करेंगे।</p>
+                    </div>
+                    <div class="service-card home-delivery">
+                        <div class="service-icon">💰</div>
+                        <div class="delivery-badge">घर पर सेवा</div>
+                        <h3>नकद निकासी (AEPS)</h3>
+                        <p>आधार से बैंक से पैसे निकालें। हम बायोमेट्रिक डिवाइस लेकर आपके घर आएंगे।</p>
+                    </div>
+                    <div class="service-card home-delivery">
+                        <div class="service-icon">💸</div>
+                        <div class="delivery-badge">होम डिलीवरी</div>
+                        <h3>मनी ट्रांसफर (DMT)</h3>
+                        <p>बैंक खाते से दूसरे खाते में पैसा भेजें। विवरण दें, हम रिमोट या घर जाकर ट्रांसफर करेंगे।</p>
+                    </div>
+                    <div class="service-card home-delivery">
+                        <div class="service-icon">🛡️</div>
+                        <div class="delivery-badge">होम डिलीवरी</div>
+                        <h3>बीमा प्रीमियम</h3>
+                        <p>फसल बीमा, जीवन बीमा प्रीमियम भुगतान। ऑनलाइन भुगतान, रसीद डिजिटल भेजी जाएगी।</p>
+                    </div>
+                    <div class="service-card home-delivery">
+                        <div class="service-icon">💳</div>
+                        <div class="delivery-badge">होम डिलीवरी</div>
+                        <h3>पैन कार्ड आवेदन</h3>
+                        <p>e-KYC आधारित पैन। डिजिटल फोटो, सिग्नेचर और OTP दें। PAN कार्ड डाक से घर पर मिलेगा।</p>
+                    </div>
+                    <div class="service-card home-delivery">
+                        <div class="service-icon">🌾</div>
+                        <div class="delivery-badge">होम डिलीवरी</div>
+                        <h3>योजना आवेदन</h3>
+                        <p>PM-Kisan e-KYC, श्रम कार्ड, पेंशन आवेदन। रिमोट डेटा एंट्री, बायोमेट्रिक के लिए घर आएंगे।</p>
+                    </div>
+                    <div class="service-card home-delivery">
+                        <div class="service-icon">🚆</div>
+                        <div class="delivery-badge">होम डिलीवरी</div>
+                        <h3>टिकट बुकिंग</h3>
+                        <p>IRCTC रेलवे, बस और हवाई टिकट। रिमोट बुकिंग, टिकट डिजिटल रूप से भेजी जाएगी।</p>
+                    </div>
+                    <div class="service-card home-delivery">
+                        <div class="service-icon">📜</div>
+                        <div class="delivery-badge">घर पर सेवा</div>
+                        <h3>प्रमाण पत्र (e-Mitra@Home)</h3>
+                        <p>मूल निवास, जाति प्रमाण पत्र। हम घर आकर दस्तावेज लेंगे, स्वीकृति के बाद प्रमाण पत्र घर पर डिलीवर करेंगे।</p>
+                    </div>
+                    <div class="service-card home-delivery">
+                        <div class="service-icon">📋</div>
+                        <div class="delivery-badge">होम डिलीवरी</div>
+                        <h3>ऑनलाइन फॉर्म भरना</h3>
+                        <p>सभी सरकारी फॉर्म, परीक्षा शुल्क, प्रवेश फॉर्म। फोन पर जानकारी लेकर हम फॉर्म भरेंगे।</p>
+                    </div>
+                    <div class="service-card home-delivery">
+                        <div class="service-icon">📞</div>
+                        <div class="delivery-badge">24/7 उपलब्ध</div>
+                        <h3>फोन/व्हाट्सएप सेवा</h3>
+                        <p>कॉल या WhatsApp करें, हम आपके दस्तावेज और जानकारी लेकर सभी काम दूर से कर देंगे।</p>
+                    </div>
+                </div>
+                
+                <div class="home-delivery-info">
+                    <h4>🎯 होम डिलीवरी सेवा के फायदे:</h4>
+                    <ul>
+                        <li>✅ घर बैठे सभी सेवाएं</li>
+                        <li>✅ समय की बचत - कियोस्क जाने की जरूरत नहीं</li>
+                        <li>✅ डिजिटल रसीद और दस्तावेज WhatsApp/ईमेल पर</li>
+                        <li>✅ बायोमेट्रिक सेवाओं के लिए घर पर विजिट</li>
+                        <li>✅ फोन/WhatsApp पर पूरी सहायता</li>
+                    </ul>
+                    <div class="cta-container">
+                        <a href="tel:9828113277" class="cta-button" style="margin-right: 1rem;">📞 अभी कॉल करें</a>
+                        <a href="https://wa.me/919828113277" class="cta-button">💬 WhatsApp करें</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">हमसे संपर्क करें</h2>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>संपर्क जानकारी</h3>
+                    <div class="contact-item">
+                        <div class="contact-item-icon">📞</div>
+                        <div>
+                            <strong>मोबाइल नंबर</strong><br>
+                            <a href="tel:9828113277" style="color: white; text-decoration: none;">9828113277</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon">✉️</div>
+                        <div>
+                            <strong>ईमेल</strong><br>
+                            <a href="mailto:mousamkhan.mk1@gmail.com" style="color: white; text-decoration: none;">mousamkhan.mk1@gmail.com</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon">📍</div>
+                        <div>
+                            <strong>पता</strong><br>
+                            गांव धौलत, तहसील पहाड़ी<br>
+                            जिला डीग, राजस्थान 321204
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon">⏰</div>
+                        <div>
+                            <strong>खुलने का समय</strong><br>
+                            सोमवार - शनिवार: 9:00 AM - 6:00 PM<br>
+                            रविवार: बंद
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form">
+                    <h3 style="margin-bottom: 1.5rem; color: #667eea;">संदेश भेजें</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">नाम *</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">मोबाइल नंबर *</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">ईमेल</label>
+                            <input type="email" id="email" name="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">संदेश *</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">संदेश भेजें</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location Section -->
+    <section class="location" id="location">
+        <div class="container">
+            <h2 class="section-title">हमारा स्थान</h2>
+            <div class="map-container">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d55925.89!2d77.2!3d27.5!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjfCsDMwJzAwLjAiTiA3N8KwMTInMDAuMCJF!5e0!3m2!1shi!2sin!4v1234567890"
+                    width="100%" 
+                    height="400" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Mousam E-mitra & CSC Center. All Rights Reserved.</p>
+            <p style="margin-top: 0.5rem; font-size: 0.9rem;">गांव धौलत, तहसील पहाड़ी, जिला डीग, राजस्थान 321204</p>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/919828113277" class="whatsapp-float" target="_blank" title="WhatsApp पर संपर्क करें">
+        💬
+    </a>
+
+    <script>
+        // Tab switching function
+        function showServices(type) {
+            // Hide all service contents
+            document.querySelectorAll('.services-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected service content
+            if (type === 'csc') {
+                document.getElementById('csc-services').classList.add('active');
+                document.querySelectorAll('.tab-btn')[0].classList.add('active');
+            } else if (type === 'emitra') {
+                document.getElementById('emitra-services').classList.add('active');
+                document.querySelectorAll('.tab-btn')[1].classList.add('active');
+            } else if (type === 'home') {
+                document.getElementById('home-services').classList.add('active');
+                document.querySelectorAll('.tab-btn')[2].classList.add('active');
+            }
+        }
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            
+            // WhatsApp message
+            const whatsappMessage = `नमस्ते, मेरा नाम ${name} है।%0aमोबाइल: ${phone}%0a${email ? 'ईमेल: ' + email + '%0a' : ''}संदेश: ${message}`;
+            const whatsappURL = `https://wa.me/919828113277?text=${whatsappMessage}`;
+            
+            window.open(whatsappURL, '_blank');
+            
+            // Reset form
+            this.reset();
+            alert('धन्यवाद! आपका संदेश WhatsApp पर भेजा जा रहा है।');
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.6s, transform 0.6s';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
